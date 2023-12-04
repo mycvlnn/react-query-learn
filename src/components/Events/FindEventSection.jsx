@@ -17,7 +17,7 @@ export default function FindEventSection() {
                 search: searchTerm,
             },
         ],
-        queryFn: () => fetchEvents(searchTerm),
+        queryFn: ({ signal }) => fetchEvents({ searchTerm, signal }),
     });
 
     let content = <p>Please enter a search term add to find events</p>;
