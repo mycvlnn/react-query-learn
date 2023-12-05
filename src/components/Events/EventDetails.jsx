@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
 
 import Header from "../Header.jsx";
@@ -6,8 +7,10 @@ import { QUERY_KEY } from "../../constants/queryKey.js";
 import { deleteEvent, fetchEvent, queryClient } from "../../utils/http.js";
 import LoadingIndicator from "../UI/LoadingIndicator.jsx";
 import ErrorBlock from "../UI/ErrorBlock.jsx";
+import Modal from "../UI/Modal.jsx";
 
 export default function EventDetails() {
+    const [showPopupDelete, setShowPopupDelete] = useState(false);
     const params = useParams();
     const navigate = useNavigate();
     const { data, isPending, isError, error } = useQuery({
@@ -35,6 +38,14 @@ export default function EventDetails() {
             navigate(-1);
         },
     });
+
+    const handleOpenPopupDelete = () => {
+        setShowPopupDelete(true);
+    };
+
+    const handleClosePopupDelete = () => {
+        setShowPopupDelete(false);
+    };
 
     // Hàm xử lý xoá event
     const handleDeleteEvent = () => {
@@ -65,8 +76,7 @@ export default function EventDetails() {
                 <header>
                     <h1>{data.title}</h1>
                     <nav>
-                        {!isPendingDel && <button onClick={handleDeleteEvent}>Delete</button>}
-                        {isPendingDel && <button>Deleting...</button>}
+                        <button onClick={handleOpenPopupDelete}>Delete</button>
                         <Link to="edit">Edit</Link>
                     </nav>
                 </header>
@@ -87,15 +97,38 @@ export default function EventDetails() {
 
     return (
         <>
+            {showPopupDelete && (
+                <Modal onClose={handleClosePopupDelete}>
+                    <h2>Are you sure?</h2>
+                    <p>Do you really want to delete this event? This action cannot be undone</p>
+                    <div className="form-actions">
+                        {isPendingDel && <p>Deleting, please wait...</p>}
+                        {!isPendingDel && (
+                            <>
+                                <button className="button-text" onClick={handleClosePopupDelete}>
+                                    Cancel
+                                </button>
+                                <button className="button" onClick={handleDeleteEvent}>
+                                    Delete
+                                </button>
+                            </>
+                        )}
+                    </div>
+                    {isErrorDel && (
+                        <ErrorBlock
+                            title="Failed to delete event!"
+                            message={errorDel.info?.message}
+                        />
+                    )}
+                </Modal>
+            )}
             <Outlet />
             <Header>
                 <Link to="/events" className="nav-item">
                     View all Events
                 </Link>
             </Header>
-            {isErrorDel && (
-                <ErrorBlock title="Failed to delete event!" message={errorDel.info?.message} />
-            )}
+
             <article id="event-details">{content}</article>
         </>
     );
