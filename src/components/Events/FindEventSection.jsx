@@ -4,6 +4,7 @@ import { fetchEvents } from "../../utils/http";
 import LoadingIndicator from "../UI/LoadingIndicator";
 import ErrorBlock from "../UI/ErrorBlock";
 import EventItem from "./EventItem";
+import { QUERY_KEY } from "../../constants/queryKey";
 
 export default function FindEventSection() {
     const searchElement = useRef();
@@ -12,7 +13,7 @@ export default function FindEventSection() {
 
     const { data, isLoading, isError, error } = useQuery({
         queryKey: [
-            "events",
+            QUERY_KEY.EVENTS,
             {
                 search: searchTerm,
             },

@@ -5,11 +5,20 @@ import EventForm from "./EventForm.jsx";
 import { useMutation } from "@tanstack/react-query";
 import { createNewEvent } from "../../utils/http.js";
 import ErrorBlock from "../UI/ErrorBlock.jsx";
+import { queryClient } from "../../utils/http.js";
+import { QUERY_KEY } from "../../constants/queryKey.js";
 
 export default function NewEvent() {
     const navigate = useNavigate();
     const { mutate, isPending, isError, error } = useMutation({
         mutationFn: createNewEvent,
+        onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: [QUERY_KEY.EVENTS],
+            });
+            // Chỉ chạy vào hàm này trong trường hợp thành công
+            navigate("/events");
+        },
     });
 
     function handleSubmit(formData) {

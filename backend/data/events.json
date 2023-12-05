@@ -10,7 +10,7 @@
     },
     {
         "id": "e2",
-        "title": "City Hunt: Web Dev Edition",
+        "title": "City Hunt: Web Dev Edition !",
         "image": "buzzing-city.jpg",
         "description": "Explore the city and discover hidden gems while completing fun web development challenges.",
         "date": "2024-10-07",
@@ -33,6 +33,42 @@
         "date": "2023-11-03",
         "time": "18:30",
         "location": "Learning Labs, Austin, TX",
+        "image": "laptop-on-desk.jpg"
+    },
+    {
+        "id": "9274",
+        "title": "fdjlajfldas",
+        "description": "fdafd",
+        "date": "2023-12-05",
+        "time": "10:05",
+        "location": "New Location",
+        "image": "buzzing-city.jpg"
+    },
+    {
+        "id": "6863",
+        "title": "xxxxxxx",
+        "description": "123123123",
+        "date": "2023-12-05",
+        "time": "10:06",
+        "location": "fdafdaf",
+        "image": "women-coding.jpg"
+    },
+    {
+        "id": "1128",
+        "title": "xxx12312",
+        "description": "xxxdefda123",
+        "date": "2023-12-05",
+        "time": "10:07",
+        "location": "New location",
+        "image": "park.jpg"
+    },
+    {
+        "id": "7663",
+        "title": "xxvvvvv",
+        "description": "xxxxx",
+        "date": "2023-12-05",
+        "time": "10:07",
+        "location": "12345678",
         "image": "laptop-on-desk.jpg"
     }
 ]

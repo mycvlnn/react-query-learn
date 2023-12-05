@@ -4,11 +4,12 @@ import ImagePicker from "../ImagePicker.jsx";
 import { useQuery } from "@tanstack/react-query";
 import { fetchSelectableImages } from "../../utils/http.js";
 import ErrorBlock from "../UI/ErrorBlock";
+import { QUERY_KEY } from "../../constants/queryKey.js";
 
 export default function EventForm({ inputData, onSubmit, children }) {
     const [selectedImage, setSelectedImage] = useState(inputData?.image);
     const { data, isPending, isError, error } = useQuery({
-        queryKey: ["events-get-images"],
+        queryKey: [QUERY_KEY.FETCH_IMAGES],
         queryFn: fetchSelectableImages,
     });
 

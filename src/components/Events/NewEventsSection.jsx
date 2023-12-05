@@ -3,10 +3,11 @@ import ErrorBlock from "../UI/ErrorBlock.jsx";
 import EventItem from "./EventItem.jsx";
 import { useQuery } from "@tanstack/react-query";
 import { fetchEvents } from "../../utils/http.js";
+import { QUERY_KEY } from "../../constants/queryKey.js";
 
 export default function NewEventsSection() {
     const { data, isPending, isError, error } = useQuery({
-        queryKey: ["events"],
+        queryKey: [QUERY_KEY.EVENTS],
         queryFn: fetchEvents,
         // staleTime: 5000,
         gcTime: 3000,
