@@ -25,6 +25,11 @@ export default function EventDetails() {
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: [QUERY_KEY.EVENTS],
+                /**
+                 * which makes sure that when you call invalidate queries, these existing queries will not automatically be triggered again immediately.
+                 * Instead, they will just be invalidated and the next time they are required, they will run again.
+                 */
+                refetchType: "none",
             });
 
             navigate(-1);
