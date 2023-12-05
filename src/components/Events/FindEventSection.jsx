@@ -15,10 +15,10 @@ export default function FindEventSection() {
         queryKey: [
             QUERY_KEY.EVENTS,
             {
-                search: searchTerm,
+                searchTerm,
             },
         ],
-        queryFn: ({ signal }) => fetchEvents({ searchTerm, signal }),
+        queryFn: ({ signal, queryKey }) => fetchEvents({ ...queryKey[1], signal }),
         enabled: searchTerm !== undefined,
     });
 

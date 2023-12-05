@@ -7,10 +7,8 @@ import { QUERY_KEY } from "../../constants/queryKey.js";
 
 export default function NewEventsSection() {
     const { data, isPending, isError, error } = useQuery({
-        queryKey: [QUERY_KEY.EVENTS],
-        queryFn: fetchEvents,
-        // staleTime: 5000,
-        gcTime: 3000,
+        queryKey: [QUERY_KEY.EVENTS, { max: 3 }],
+        queryFn: ({ signal, queryKey }) => fetchEvents({ signal, ...queryKey[1] }),
     });
 
     let content;
