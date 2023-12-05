@@ -11,7 +11,7 @@ export default function EventDetails() {
     const params = useParams();
     const navigate = useNavigate();
     const { data, isPending, isError, error } = useQuery({
-        queryKey: [{ id: params?.id }],
+        queryKey: [QUERY_KEY.EVENTS, { id: params?.id }],
         queryFn: ({ signal }) => fetchEvent({ id: params?.id, signal }),
     });
 
@@ -40,14 +40,23 @@ export default function EventDetails() {
 
     let content = <p>Not found item</p>;
 
-    if (isPending) content = <LoadingIndicator />;
+    if (isPending)
+        content = (
+            <div className="center" id="event-details-content">
+                <LoadingIndicator />;
+            </div>
+        );
 
     if (isError)
-        content = <ErrorBlock title="Failed to fetch event" message={error.info?.message} />;
+        content = (
+            <div className="center" id="event-details-content">
+                <ErrorBlock title="Failed to fetch event" message={error.info?.message} />
+            </div>
+        );
 
     if (data)
         content = (
-            <article id="event-details">
+            <>
                 <header>
                     <h1>{data.title}</h1>
                     <nav>
@@ -68,7 +77,7 @@ export default function EventDetails() {
                         <p id="event-details-description">{data.description}</p>
                     </div>
                 </div>
-            </article>
+            </>
         );
 
     return (
@@ -82,7 +91,7 @@ export default function EventDetails() {
             {isErrorDel && (
                 <ErrorBlock title="Failed to delete event!" message={errorDel.info?.message} />
             )}
-            {content}
+            <article id="event-details">{content}</article>
         </>
     );
 }
